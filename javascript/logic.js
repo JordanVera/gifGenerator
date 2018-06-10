@@ -67,16 +67,21 @@ function gifsOutput() {
 	     
 			p.innerText = results[i].rating;
 	        
-			const subjectImage = document.createElement('img').setAttribute('src', results[i].data.url);
+			const subjectImage = document.createElement('img'); 
+			subjectImage.src = results[i].images.fixed_height.url;
+			subjectImage.className = 'gif';
 	        
-			subjectDiv.appendChild(p, subjectImage);
-	       
+			subjectDiv.appendChild(p);
+			subjectDiv.appendChild(subjectImage);
+			
 			$('#displayGIFS').prepend(subjectDiv);
 	       
 	         }
 	
 	      });
 }
+
+// f(x) to pause gifs
 
 
 buttons.addEventListener('click', gifsOutput);
