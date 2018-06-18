@@ -7,3 +7,12 @@ button {
 	display: grid;
 	grid-template-columns: 1fr 1fr;
 }
+
+h1 {
+	color: yellow;
+}
+
+
+body {
+	background: #f5f5f5 url('../media/mathBackground.jpg') no-repeat left top;
+}

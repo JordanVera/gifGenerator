@@ -4,7 +4,7 @@ _____________________________________________________*/
 
 /* Global Variables
 _____________________________________________________*/
-let topics	  = ['math', 'science', 'english', 'gym'];
+let topics	  = ['math', 'science', 'english', 'gym', 'alchemy'];
 const buttons = document.querySelector('#buttons');
 const gifs 	  = document.querySelector('#displayGIFS');
 	  
@@ -28,7 +28,7 @@ _____________________________________________________*/
           // This code $("<button>") is all jQuery needs to create the beginning and end tag. (<button></button>)
           var a = document.createElement('button');
           // Adding a class
-          a.className = 'subject';
+          a.className = 'subject button';
           // Added a data-attribute
           a.setAttribute("data-name", topics[i]);
           // Provided the initial button text
@@ -37,7 +37,7 @@ _____________________________________________________*/
           buttons.appendChild(a);
         }
       }
-      
+      // Call the renderButtons f(x)
       renderButtons();
 
 
@@ -45,11 +45,14 @@ _____________________________________________________*/
 function gifsOutput() {
 	while (gifsOutput.firstChild) gifsOutput.removeChild(gifsOutput.firstChild);
 	
-	const input    = $(this).attr('data-name'),
-		  limit 	   = 10,
-		  queryURL =  `https:\/\/api.giphy.com/v1/gifs/search?q=${input}&limit=${limit}&api_key=oUK8coAde2ynIwuhI2rWlMQpcR5pj477`,
-		  xhr 	   = new XMLHttpRequest();
+	let input 		= $(this).attr('data-name'),
+		limit 		= 10,
+		queryURL 	=  `https:\/\/api.giphy.com/v1/gifs/search?q=${input}&limit=${limit}&api_key=oUK8coAde2ynIwuhI2rWlMQpcR5pj477`,
+		xhr 	   	= new XMLHttpRequest();
 	
+
+console.log($(this).text());
+
 	// AJAX REQUEST
 	  $.ajax({
 	        url: queryURL,
@@ -81,11 +84,16 @@ function gifsOutput() {
 	      });
 }
 
-// f(x) to pause gifs
 
+// f(x) to add users inputs onto the list
+document.querySelector('#addSubject').addEventListener('click', function(event) {
+	event.preventDefault();
+	
+	let subject = document.querySelector('#subjectInput').value.trim();
+	
+	topics.push(subject);
+	renderButtons();
+});
 
-buttons.addEventListener('click', gifsOutput);
-
-
-
-
+// f(x) to display gifs
+$(document).on("click", ".subject", gifsOutput)
